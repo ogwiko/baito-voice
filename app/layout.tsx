@@ -25,6 +25,9 @@ export const metadata: Metadata = {
     title: "Baito-Voice - バイトの声を社会的に変換",
     description: "バイトの口コミをAIが社会的に適切な表現に変換して投稿・閲覧できるプラットフォーム",
   },
+  verification: {
+    google: "Istt3O6xPprsjRoI1Ae8UIhYMntWIQggXl_QPqsCUfA",
+  },
 };
 
 export default function RootLayout({
