@@ -111,3 +111,32 @@ export default async function PostDetailPage({
         </div>
     );
 }
+
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
+    const { id } = await params;
+
+    const { data: post } = await supabase
+        .from('posts')
+        .select(`*, shops(name)`)
+        .eq('id', id)
+        .single();
+
+    if (!post) {
+        return {
+            title: '投稿が見つかりません',
+        };
+    }
+
+    const shop = post.shops as unknown as Shop;
+    const title = `${shop.name}のバイト口コミ・評判`;
+    const description = post.filtered_content.slice(0, 100) + '...';
+
+    return {
+        title,
+        description,
+        openGraph: {
+            title: `${title} | Baito-Voice`,
+            description,
+        },
+    };
+}
