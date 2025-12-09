@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Home, PlusCircle, Search, Menu, X, Settings } from 'lucide-react';
 import { useState } from 'react';
+import AdBanner from '../ads/AdBanner';
 
 const menuItems = [
     { name: 'ホーム', href: '/', icon: Home },
@@ -49,8 +50,8 @@ export default function Sidebar() {
                                     href={item.href}
                                     onClick={() => setIsOpen(false)}
                                     className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 ${isActive
-                                            ? 'bg-blue-50 text-blue-600 font-semibold shadow-sm'
-                                            : 'text-gray-600 hover:bg-gray-50 hover:text-blue-500'
+                                        ? 'bg-blue-50 text-blue-600 font-semibold shadow-sm'
+                                        : 'text-gray-600 hover:bg-gray-50 hover:text-blue-500'
                                         }`}
                                 >
                                     <Icon size={20} />
@@ -60,6 +61,12 @@ export default function Sidebar() {
                         })}
                     </nav>
 
+
+
+                    <div className="px-4 pb-4">
+                        <AdBanner type="sidebar" />
+                    </div>
+
                     {/* Footer / User Area */}
                     <div className="p-4 border-t border-gray-100">
                         <button className="flex items-center gap-3 px-4 py-3 w-full text-gray-600 hover:bg-gray-50 rounded-xl transition-colors">
@@ -68,15 +75,17 @@ export default function Sidebar() {
                         </button>
                     </div>
                 </div>
-            </aside>
+            </aside >
 
             {/* Overlay for mobile */}
-            {isOpen && (
-                <div
-                    className="fixed inset-0 bg-black/20 z-30 md:hidden backdrop-blur-sm"
-                    onClick={() => setIsOpen(false)}
-                />
-            )}
+            {
+                isOpen && (
+                    <div
+                        className="fixed inset-0 bg-black/20 z-30 md:hidden backdrop-blur-sm"
+                        onClick={() => setIsOpen(false)}
+                    />
+                )
+            }
         </>
     );
 }

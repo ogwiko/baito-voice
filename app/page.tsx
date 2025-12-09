@@ -5,6 +5,8 @@ import { supabase } from '@/lib/supabase';
 import { Post, Shop } from '@/types';
 import MapWrapper from '@/components/features/MapWrapper';
 import SortSelect from '@/components/features/SortSelect';
+import AdBanner from '@/components/ads/AdBanner';
+import React from 'react';
 
 // Revalidate data every 0 seconds (dynamic) or use a specific interval
 export const revalidate = 0;
@@ -93,14 +95,20 @@ export default async function Home({
           <SortSelect />
         </header>
 
-        <div className="space-y-4">
+        <div className="space-y-6">
+          {/* Top Ad */}
+          <AdBanner type="feed" />
+
           {posts && posts.length > 0 ? (
-            posts.map((post: any) => (
-              <PostCard
-                key={post.id}
-                post={post}
-                shop={post.shops as Shop}
-              />
+            posts.map((post: any, index: number) => (
+              <React.Fragment key={post.id}>
+                <PostCard
+                  post={post}
+                  shop={post.shops as Shop}
+                />
+                {/* Insert Ad every 5 posts */}
+                {(index + 1) % 5 === 0 && <AdBanner type="feed" />}
+              </React.Fragment>
             ))
           ) : (
             <div className="text-center py-12 bg-gray-50 rounded-2xl border border-dashed border-gray-200">
