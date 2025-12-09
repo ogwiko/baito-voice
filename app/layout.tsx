@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Sidebar from "@/components/ui/Sidebar";
+import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -38,6 +39,12 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body className={`${inter.className} bg-slate-50 text-slate-900`}>
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8822788518845939"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
         <div className="flex min-h-screen">
           <Sidebar />
           <main className="flex-1 md:ml-64 p-4 md:p-8 transition-all duration-300">
