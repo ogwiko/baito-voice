@@ -9,7 +9,6 @@ CREATE TABLE shops (
   created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
--- Create posts table
 CREATE TABLE posts (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   shop_name TEXT NOT NULL, -- In case shop is not in DB yet, or linked to shops table
@@ -18,6 +17,9 @@ CREATE TABLE posts (
   filtered_content TEXT NOT NULL, -- Public
   tone_type TEXT NOT NULL CHECK (tone_type IN ('business', 'mild', 'humor')),
   rating INTEGER NOT NULL CHECK (rating >= 1 AND rating <= 5),
+  wage INTEGER, -- Hourly wage
+  tags TEXT[], -- Characteristic tags
+  likes INTEGER DEFAULT 0,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 

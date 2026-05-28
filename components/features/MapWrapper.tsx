@@ -2,6 +2,7 @@
 
 import dynamic from 'next/dynamic';
 import { Loader2 } from 'lucide-react';
+import { Shop } from '@/types';
 
 const MapComponent = dynamic(() => import('./MapComponent'), {
   ssr: false,
@@ -13,6 +14,10 @@ const MapComponent = dynamic(() => import('./MapComponent'), {
   ),
 });
 
-export default function MapWrapper() {
-  return <MapComponent />;
+interface MapWrapperProps {
+  shops?: Shop[];
+}
+
+export default function MapWrapper({ shops = [] }: MapWrapperProps) {
+  return <MapComponent shops={shops} />;
 }
