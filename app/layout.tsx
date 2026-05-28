@@ -6,26 +6,30 @@ import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://baito-voice-rdps.vercel.app';
+
 export const metadata: Metadata = {
   title: {
-    default: "Baito-Voice - バイトの声を社会的に変換",
-    template: "%s | Baito-Voice",
+    default: "Baito Voice - バイトの本音をAIが社会的に変換",
+    template: "%s | Baito Voice",
   },
-  description: "バイトの口コミをAIが社会的に適切な表現に変換して投稿・閲覧できるプラットフォーム",
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://baito-voice.vercel.app"),
+  description: "「店長マジ無理」→AIがビジネス文書に変換。バイト口コミの新しい形。本音で書いてAIが整える、バイトレビュープラットフォーム。",
+  metadataBase: new URL(siteUrl),
   openGraph: {
-    title: "Baito-Voice - バイトの声を社会的に変換",
-    description: "バイトの口コミをAIが社会的に適切な表現に変換して投稿・閲覧できるプラットフォーム",
-    url: "/",
-    siteName: "Baito-Voice",
+    title: "Baito Voice - バイトの本音をAIが社会的に変換",
+    description: "「店長マジ無理」→AIがビジネス文書に変換。バイト口コミの新しい形。本音で書いてAIが整える、バイトレビュープラットフォーム。",
+    url: siteUrl,
+    siteName: "Baito Voice",
     locale: "ja_JP",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Baito-Voice - バイトの声を社会的に変換",
-    description: "バイトの口コミをAIが社会的に適切な表現に変換して投稿・閲覧できるプラットフォーム",
+    title: "Baito Voice - バイトの本音をAIが社会的に変換",
+    description: "「店長マジ無理」→AIがビジネス文書に変換。バイト口コミの新しい形。本音で書いてAIが整える、バイトレビュープラットフォーム。",
+    site: "@baito_voice",
   },
+  keywords: ["バイト", "口コミ", "アルバイト", "レビュー", "AI", "時給", "評判"],
   verification: {
     google: "Istt3O6xPprsjRoI1Ae8UIhYMntWIQggXl_QPqsCUfA",
     other: {
