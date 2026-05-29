@@ -22,6 +22,14 @@ export default function PostForm() {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [showToast, setShowToast] = useState(false);
     const [toastMessage, setToastMessage] = useState('');
+    const [toastType, setToastType] = useState<'success' | 'error'>('success');
+
+    const showError = (msg: string) => {
+        setToastMessage(msg);
+        setToastType('error');
+        setShowToast(true);
+        setTimeout(() => setShowToast(false), 3000);
+    };
 
     const handleGenerate = async () => {
         if (!content) return;
@@ -39,14 +47,14 @@ export default function PostForm() {
             const data = await response.json();
 
             if (data.error) {
-                alert('エラーが発生しました: ' + data.error);
+                showError('エラーが発生しました: ' + data.error);
                 return;
             }
 
             setGeneratedContent(data.result);
         } catch (error) {
             console.error('Generation error:', error);
-            alert('通信エラーが発生しました');
+            showError('通信エラーが発生しました');
         } finally {
             setIsGenerating(false);
         }
@@ -62,7 +70,7 @@ export default function PostForm() {
         e.preventDefault();
 
         if (rating === 0) {
-            alert('評価（星）を選択してください');
+            showError('評価（星）を選択してください');
             return;
         }
 
@@ -88,12 +96,13 @@ export default function PostForm() {
             const data = await response.json();
 
             if (data.error) {
-                alert('エラーが発生しました: ' + data.error);
+                showError('エラーが発生しました: ' + data.error);
                 return;
             }
 
             // トースト表示
             setToastMessage('投稿が完了しました！ホームへ戻ります。');
+            setToastType('success');
             setShowToast(true);
 
             // Reset form
@@ -113,7 +122,7 @@ export default function PostForm() {
             }, 2000);
         } catch (error) {
             console.error('Submission error:', error);
-            alert('送信に失敗しました');
+            showError('送信に失敗しました');
         } finally {
             setIsSubmitting(false);
         }
@@ -324,8 +333,12 @@ export default function PostForm() {
             {/* Custom Toast */}
             {showToast && (
                 <div className="fixed bottom-6 right-6 bg-slate-900/90 text-white px-6 py-3.5 rounded-2xl shadow-xl backdrop-blur-md flex items-center gap-3 z-50 border border-slate-700 animate-in fade-in slide-in-from-bottom-5">
-                    <div className="bg-emerald-500 text-slate-900 p-1 rounded-full">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    <div className={`${toastType === 'error' ? 'bg-red-500' : 'bg-emerald-500'} text-white p-1 rounded-full`}>
+                        {toastType === 'error' ? (
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                        ) : (
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                        )}
                     </div>
                     <span className="text-sm font-semibold">{toastMessage}</span>
                 </div>

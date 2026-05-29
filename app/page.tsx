@@ -20,6 +20,8 @@ export default async function Home({
   const area = typeof params.area === 'string' ? params.area : undefined;
   const keyword = typeof params.keyword === 'string' ? params.keyword : undefined;
   const sort = typeof params.sort === 'string' ? params.sort : 'newest';
+  const wage = typeof params.wage === 'string' ? params.wage : undefined;
+  const tag = typeof params.tag === 'string' ? params.tag : undefined;
 
   let query = supabase
     .from('posts')
@@ -55,6 +57,15 @@ export default async function Home({
 
   if (keyword) {
     query = query.or(`shop_name.ilike.%${keyword}%,filtered_content.ilike.%${keyword}%,original_content.ilike.%${keyword}%`);
+  }
+
+  if (wage) {
+    const minWage = parseInt(wage, 10);
+    if (!isNaN(minWage)) query = query.gte('wage', minWage);
+  }
+
+  if (tag) {
+    query = query.contains('tags', [tag]);
   }
 
   // Apply sorting
