@@ -74,6 +74,24 @@ export default function PostForm() {
             return;
         }
 
+        if (shopName.length > 50) {
+            showError('店名は50文字以内で入力してください');
+            return;
+        }
+
+        if (content.length > 500) {
+            showError(`本音レビューは500文字以内で入力してください（現在${content.length}文字）`);
+            return;
+        }
+
+        if (wage !== '') {
+            const wageNum = parseInt(wage, 10);
+            if (isNaN(wageNum) || wageNum < 0 || wageNum > 10000) {
+                showError('時給は0〜10000円の範囲で入力してください');
+                return;
+            }
+        }
+
         try {
             setIsSubmitting(true);
             const response = await fetch('/api/posts', {

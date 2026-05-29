@@ -8,6 +8,8 @@ export interface Post {
     filtered_content: string;
     tone_type: ToneType;
     rating: number;
+    wage?: number | null;
+    tags?: string[];
     likes?: number;
     created_at: string;
 }
