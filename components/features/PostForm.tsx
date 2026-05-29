@@ -2,7 +2,8 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Star, Send, Wand2, Loader2, MapPin, Banknote, Tag } from 'lucide-react';
+import Link from 'next/link';
+import { Star, Send, Wand2, Loader2, MapPin, Banknote, Tag, AlertTriangle } from 'lucide-react';
 import { ToneType } from '@/types';
 
 const TAG_OPTIONS = ['#激務', '#楽', '#人間関係良', '#まかない有'];
@@ -260,6 +261,14 @@ export default function PostForm() {
                     <label className="block text-sm font-semibold text-gray-700 mb-2">
                         元のレビュー（本音でOK）
                     </label>
+                    <div className="flex items-start gap-2 mb-2 p-3 bg-amber-50 border border-amber-200 rounded-lg text-amber-800 text-xs">
+                        <AlertTriangle size={16} className="flex-shrink-0 mt-0.5 text-amber-600" />
+                        <span>
+                            <span className="font-bold">個人名・従業員名はNG</span><br />
+                            「店長の田中さん」など個人を特定できる情報は書かないでください。お店の感想として書きましょう。
+                            <Link href="/terms" className="underline ml-1 hover:text-amber-900" target="_blank">利用規約</Link>
+                        </span>
+                    </div>
                     <textarea
                         value={content}
                         onChange={(e) => setContent(e.target.value)}

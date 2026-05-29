@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, PlusCircle, Search, Menu, X, Settings } from 'lucide-react';
+import { Home, PlusCircle, Search, Menu, X, FileText } from 'lucide-react';
 import { useState } from 'react';
 import AdBanner from '../ads/AdBanner';
 
@@ -69,10 +69,14 @@ export default function Sidebar() {
 
                     {/* Footer / User Area */}
                     <div className="p-4 border-t border-gray-100">
-                        <button className="flex items-center gap-3 px-4 py-3 w-full text-gray-600 hover:bg-gray-50 rounded-xl transition-colors">
-                            <Settings size={20} />
-                            <span>設定</span>
-                        </button>
+                        <Link
+                            href="/terms"
+                            onClick={() => setIsOpen(false)}
+                            className="flex items-center gap-3 px-4 py-3 w-full text-gray-600 hover:bg-gray-50 rounded-xl transition-colors"
+                        >
+                            <FileText size={20} />
+                            <span className="text-sm">利用規約・免責事項</span>
+                        </Link>
                     </div>
                 </div>
             </aside >
